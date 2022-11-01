@@ -1,0 +1,107 @@
+UHE Xmax data from ICRC19 (internal use only)
+
+* File format exactly as the tarball provided in the Xmax PRD 2014
+  (but one more bin in energy at UHE!).
+
+* Selection exactly as in Xmax PRD 2014, except that below E<=10^18.1
+  eV events are excluded that belong to the HeCo data set (see
+  keepHECOorCoihuecoHEAT cut in ADST Analysis package).  Event
+  36700641 was removed "by hand" (see MU talk at Nijmegen meeting
+  2019).
+
+
+* Acceptance and resolution as in Xmax PRD 2014. Please use Eric's new
+  parameterization for systematic studies (see his talk at Nijmegen
+  meeting 2019).
+
+
+files:
+
+  example.C
+  =========
+
+  ROOT macro to examplify the reading of the various files.
+
+  Load via
+  .L example.C+
+  and then execute via
+  example()
+  at the ROOT prompt
+
+
+  xmaxMoments.txt
+  ===============
+  mean and standard deviation of the Xmax distribution (fully
+  corrected for detector effects).
+
+  Format:
+    energyBin lgMinEnergy lgMaxEnergy meanLgEnergy numberOfEvents
+    meanXmax meanXmaxSigmaStat meanXmaxSigmaSysUp meanXmaxSigmaSysLow
+    sigmaXmax sigmaXmaxSigmaStat sigmaXmaxSigmaSysUp
+    sigmaXmaxSigmaSysLow
+
+  xmaxHistograms.txt
+  ==================
+  This file contains the number of entries per Xmax interval for
+  different energies.
+
+  Format:
+    energyBin lgMinEnergy lgMaxEnergy numberOfEvents numberOfBins xmaxMin xmaxMax
+  followed by numberOfBins numbers denoting the entries in the respective bin.
+
+
+  xmaxSystematics.txt
+  ===================
+  Table of Xmax-scale uncertainty.
+
+  Format:
+    energyBin lgMinEnergy lgMaxEnergy sigmaUp sigmaLow
+
+  sigmaUp and sigmaLow are the asymetric uncertainties in units of g/cm^2.
+
+
+  correlationSysPlus/Minus.txt
+  ============================
+  Correlation matrix of the Xmax-scale uncertainty stored as a 18x18 table.
+
+
+  resolution.txt
+  ==============
+  Table of parameters of Xmax resolution as a function of energy.
+  The resolution is a sum of Gaussians G(mean, sigma)
+     f(Xmax_true - Xmax_rec) = k * G(0, sigma1) + (1 - k) * G(0, sigma2)
+  with variance
+     V = k * sigma1^2 + (1 - k) * sigma2^2
+
+  Format:
+    energyBin lgMinEnergy lgMaxEnergy sigma1 sigma1Err sigma2 sigma2Err k
+
+  sigma1 and sigma2 and their syst. errors are in units of g/cm^2.
+  Note that sigma1Err and sigma2Err are correlated, i.e. the upper
+  and lower 1-sigma bound on the resolution is given by
+    k * G(0, sigma1 + sigma1Err) + (1 - k) * G(0, sigma2 + sigma2Err)
+  and
+    k * G(0, sigma1 - sigma1Err) + (1 - k) * G(0, sigma2 - sigma2Err)
+  respectively.
+
+
+  acceptance.txt
+  ==============
+  Table or parameters of the relative Xmax acceptance,
+
+              /  exp((Xmax-x1)/l1,   Xmax <= x1
+    relAcc = <   1,                  x1 < Xmax <= x2
+              \  exp(-(Xmax-x2)/l2), Xmax > x2
+
+  Format:
+    energyBin lgMinEnergy lgMaxEnergy x1 ex1 x2 ex2 l1 el1 l2 el2
+  where ex1, ex2, el1 and el2 are the uncertainties of the parameters.
+
+  All acceptance parameters are in units of g/cm^2.
+  Note that the acceptance is parameterized as a function of *true* Xmax,
+  i.e. before the detector resolution.
+  Extreme cases of the acceptance can be obtained by using
+     (x1-ex1, x2+ex2, l1+el1, l2+el2)
+  and
+     (x1+ex1, x2-ex2, l1-el1, l2-el2)
+  as parameters.
