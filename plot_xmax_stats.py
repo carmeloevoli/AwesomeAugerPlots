@@ -67,7 +67,7 @@ def read_moments(ibin):
 
 def set_axes(ax):
     ax.set_ylim([0.001,0.4])
-    ax.set_xlim([480.,1050.])
+    ax.set_xlim([550.,950.])
     ax.minorticks_off()
     ax.tick_params(axis='both', which='major', length=7, width=2, labelsize=17)
     
@@ -89,7 +89,7 @@ def plot_xmax_hists():
             ax.fill_between([meanXmax - sigmaXmax, meanXmax + sigmaXmax], [1, 1], color='tab:gray', alpha = 0.2)
 
             ax.bar(Xmax, counts / float(nEvents), width=20, color='tab:orange', alpha=0.6, edgecolor='tab:red', lw=1) #, alpha=0.4)
-            ax.text(500., 0.35, "%4.1f $<$ lg(E/eV) $<$ %4.1f" % (lgMinEnergy, lgMaxEnergy), fontsize=13)
+            ax.text(570., 0.34, "%4.1f $<$ lg(E/eV) $<$ %4.1f" % (lgMinEnergy, lgMaxEnergy), fontsize=13)
 
             if i != 5:
                 ax.set_xticklabels([])
@@ -99,7 +99,7 @@ def plot_xmax_hists():
     fig.supxlabel(r'X$_\textrm{max}$ [g/cm$^2$]', fontsize=25, y=0.05)
     fig.supylabel(r'events / total events', fontsize=25)
     
-    plt.savefig('xmax_hists.pdf')
+    plt.savefig('xmax_hists.pdf', bbox_inches='tight', pad_inches=0.5)
     
 def add_point(ax, x, y, xerr, yerr):
     color = 'tab:gray'
