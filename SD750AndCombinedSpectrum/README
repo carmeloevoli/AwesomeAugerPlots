@@ -1,0 +1,31 @@
+Files contained
+    correlationmatrix.combined.txt
+    correlationmatrix.sd750.txt
+    migrationmatrix.sd750.txt
+    README (this file)
+    spectrum.combined.txt
+    spectrum.sd750.txt
+    
+
+File: correlationmatrix.combined.txt
+    Values which describe the correlation between bins in the unfolding process is given for
+    each energy bin. The first column and first row indicate the energy in base-10 log of
+    in energy / eV. This file corresponds to the combined spectrum (see section 5)
+    
+File: correlation maxrix.sd750.txt
+    Values which describe the correlation between bins in the unfolding process is given for
+    each energy bin. The first column and first row indicate the energy in base-10 log of
+    in energy / eV. This file corresponds to the measurement of the energy spectrum using
+    only the sd750 (see section 4).
+    
+File: migrationmatrix.sd750.txt
+    The bin migration in the unfolding process are given in this file. The values correspond
+    to the R_{ij} which define the expected values v_i = sum_j(R_{ij} u_j). See section 4.
+
+File: spectrum.combined.txt
+    The values of the combined spectrum and related errors are given in this file. These
+    values correspond to the values in Table 10. Note these values were updated 2022.04.20.
+
+File: spectrum.sd750.txt
+    The values of the SD750 spectrum and related errors are given in this file. These
+    values correspond to the values in Table 8
