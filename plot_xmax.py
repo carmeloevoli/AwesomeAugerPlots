@@ -29,6 +29,19 @@ def add_points(ax, x, y, yerr, color):
     ax.errorbar(x, y, yerr=yerr, fmt='o', markersize=7, elinewidth=2, capsize=4, capthick=2,
         markeredgecolor=color, color=color, zorder=1)
 
+def plot_single_mass(ax, E, A):
+    lnA = np.log(float(A))
+    E_0 = 1e19
+    X_0, D, xi, delta = 795.1, 57.7, -0.04, -0.04 # Sibyll2.1
+    X_max = X_0 + D * np.log10(E / E_0 / A) + xi * lnA + delta * lnA * np.log10(E / E_0)
+    ax.plot(np.log10(E), X_max, linestyle=':')
+    X_0, D, xi, delta = 809.7, 62.2, 0.78, 0.08 # EPOS1.99
+    X_max = X_0 + D * np.log10(E / E_0 / A) + xi * lnA + delta * lnA * np.log10(E / E_0)
+    ax.plot(np.log10(E), X_max, linestyle='--')
+    X_0, D, xi, delta = 781.8, 45.8, -1.13, 1.71 # QGSJetII
+    X_max = X_0 + D * np.log10(E / E_0 / A) + xi * lnA + delta * lnA * np.log10(E / E_0)
+    ax.plot(np.log10(E), X_max, linestyle='-.')
+
 def plot_xmax():
     fig = plt.figure(figsize=(16.5, 7.5))
     gs = grid_spec.GridSpec(1, 2)
@@ -43,6 +56,9 @@ def plot_xmax():
     y, yStat, ySysUp, ySysLow = read_mean()
     ax1.fill_between(x, y - ySysLow, y + ySysUp, color='tab:green', alpha=0.3)
     add_points(ax1, x, y, [yStat, yStat], 'tab:red')
+
+    E = np.logspace(17, 20, 1000)
+    plot_single_mass(ax1, E, 1.0)
 
     ax2 = fig.add_subplot(gs[0,1])
     set_axes(ax2)
